@@ -166,6 +166,10 @@ The following environment variables are supported:
 
    Password for the first user. If unset, the account is locked.
 
+ * `FIRST_USER_SUDO_NOPASSWD` (Default: unset)
+
+   Allow the first user to use `sudo` without a password.
+
  * `DISABLE_FIRST_BOOT_USER_RENAME` (Default: `0`)
 
    Disable the renaming of the first user during the first boot. This make it so `FIRST_USER_NAME`

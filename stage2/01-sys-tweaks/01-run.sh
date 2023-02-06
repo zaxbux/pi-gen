@@ -66,8 +66,13 @@ for GRP in adm dialout users sudo plugdev input gpio spi i2c netdev; do
 done
 EOF
 
+# Update sudoers file from raspberrypi-sys-mods with new username
 if [ -f "${ROOTFS_DIR}/etc/sudoers.d/010_pi-nopasswd" ]; then
   sed -i "s/^pi /$FIRST_USER_NAME /" "${ROOTFS_DIR}/etc/sudoers.d/010_pi-nopasswd"
+else
+  if [ "${FIRST_USER_SUDO_NOPASSWD}" = "1" ]; then
+	echo "${FIRST_USER_NAME} ALL=(ALL) NOPASSWD: ALL" > "${ROOTFS_DIR}/etc/sudoers.d/010_${FIRST_USER_NAME}-nopasswd"
+  fi
 fi
 
 # set up the font and the keyboard on Linux console
@@ -79,4 +84,5 @@ on_chroot << EOF
 usermod --pass='*' root
 EOF
 
+# Remove SSH keys created during build process, they should be regenerated on first-boot
 rm -f "${ROOTFS_DIR}/etc/ssh/"ssh_host_*_key*

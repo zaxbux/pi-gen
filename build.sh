@@ -212,6 +212,7 @@ export TARGET_HOSTNAME=${TARGET_HOSTNAME:-raspberrypi}
 
 export FIRST_USER_NAME=${FIRST_USER_NAME:-pi}
 export FIRST_USER_PASS
+export FIRST_USER_SUDO_NOPASSWD
 export DISABLE_FIRST_BOOT_USER_RENAME=${DISABLE_FIRST_BOOT_USER_RENAME:-0}
 export RELEASE=${RELEASE:-bullseye} # Don't forget to update stage0/prerun.sh
 export WPA_ESSID
