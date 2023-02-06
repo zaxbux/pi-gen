@@ -543,3 +543,18 @@ To resolve this, ensure that the following files are available (install them if 
 You may also need to load the module by hand - run `modprobe binfmt_misc`.
 
 If you are using WSL to build you may have to enable the service `sudo update-binfmts --enable`
+
+### Install
+
+```
+sudo apt-get install -y qemu-user-static
+```
+
+
+```
+sed -i '10s/^$/yes/g' /var/lib/binfmts/qemu-arm /var/lib/binfmts/qemu-aarch64
+```
+
+```
+systemctl restart binfmt-support
+```
