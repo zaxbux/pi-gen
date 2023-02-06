@@ -269,6 +269,12 @@ The following process is followed to build images:
      - **00-packages** - A list of packages to install. Can have more than one, space
        separated, per line.
 
+     - **00-packages-rm** - As 00-packages, except these will be removed using
+       the ```remove -y``` parameters to apt-get.
+
+     - **00-packages-pr** - As 00-packages, except these will be purged using
+       the ```purge -y``` parameters to apt-get.
+
      - **00-packages-nr** - As 00-packages, except these will be installed using
        the ```--no-install-recommends -y``` parameters to apt-get.
 
