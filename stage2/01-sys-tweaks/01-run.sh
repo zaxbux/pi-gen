@@ -7,9 +7,11 @@ install -m 644 files/ttyoutput.conf	"${ROOTFS_DIR}/etc/systemd/system/rc-local.s
 
 install -m 644 files/50raspi		"${ROOTFS_DIR}/etc/apt/apt.conf.d/"
 
-install -m 644 files/console-setup   	"${ROOTFS_DIR}/etc/default/"
+install -m 644 files/console-setup	"${ROOTFS_DIR}/etc/default/"
 
 install -m 755 files/rc.local		"${ROOTFS_DIR}/etc/"
+
+#install -m 644 files/raspberrypi-sys-mods_20230205_i386.deb	"${ROOTFS_DIR}/tmp/"
 
 if [ -n "${PUBKEY_SSH_FIRST_USER}" ]; then
 	install -v -m 0700 -o 1000 -g 1000 -d "${ROOTFS_DIR}"/home/"${FIRST_USER_NAME}"/.ssh
@@ -23,16 +25,23 @@ if [ "${PUBKEY_ONLY_SSH}" = "1" ]; then
 s/^#?[[:blank:]]*PasswordAuthentication[[:blank:]]*yes[[:blank:]]*$/PasswordAuthentication no/' "${ROOTFS_DIR}"/etc/ssh/sshd_config
 fi
 
+curl -sL "https://github.com/zaxbux/raspberrypi-sys-mods/releases/download/20230205/raspberrypi-sys-mods_20230205_armhf.deb" -o "${ROOTFS_DIR}/tmp/raspberrypi-sys-mods_20230205_armhf.deb"
+
+on_chroot << EOF
+apt install --yes --no-install-recommends "/tmp/raspberrypi-sys-mods_20230205_armhf.deb"
+EOF
+
 on_chroot << EOF
 systemctl disable hwclock.sh
-systemctl disable nfs-common
+#systemctl disable sshswitch
 systemctl disable rpcbind
 if [ "${ENABLE_SSH}" == "1" ]; then
 	systemctl enable ssh
 else
 	systemctl disable ssh
 fi
-systemctl enable regenerate_ssh_host_keys
+systemctl disable regenerate_ssh_host_keys
+#systemctl disable apply_noobs_os_config
 EOF
 
 if [ "${USE_QEMU}" = "1" ]; then
@@ -61,9 +70,10 @@ if [ -f "${ROOTFS_DIR}/etc/sudoers.d/010_pi-nopasswd" ]; then
   sed -i "s/^pi /$FIRST_USER_NAME /" "${ROOTFS_DIR}/etc/sudoers.d/010_pi-nopasswd"
 fi
 
-on_chroot << EOF
-setupcon --force --save-only -v
-EOF
+# set up the font and the keyboard on Linux console
+# on_chroot << EOF
+# setupcon --force --save-only -v
+# EOF
 
 on_chroot << EOF
 usermod --pass='*' root

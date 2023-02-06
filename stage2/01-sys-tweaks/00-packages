@@ -1,9 +1,9 @@
-ssh less sudo psmisc strace ed ncdu
-console-setup keyboard-configuration debconf-utils parted
-bash-completion pkg-config
+less sudo
+debconf-utils parted
+bash-completion 
 hardlink ca-certificates curl
 usbutils
-libraspberrypi-dev libraspberrypi-doc 
+libraspberrypi-dev
 dosfstools
 apt-listchanges
 libpam-chksshpwd
@@ -11,12 +11,10 @@ rpi-update
 rsync
 htop
 policykit-1
-ssh-import-id
-rng-tools
 ethtool
 pciutils
 raspinfo
-udisks2
 unzip zip
 file
-nut
+nut-client
+nut-server
