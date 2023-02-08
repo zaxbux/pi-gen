@@ -1,0 +1,16 @@
+tasksel
+apt-listchanges
+man-db
+ifupdown
+net-tools
+isc-dhcp-common
+isc-dhcp-client
+perl
+install-info
+zip unzip
+media-types
+shared-mime-info
+xdg-user-dirs
+
+# used by pi-gen to process 00-debconf files, not necessary after build
+debconf-utils

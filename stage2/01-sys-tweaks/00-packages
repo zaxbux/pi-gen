@@ -1,20 +1,14 @@
 less sudo
 debconf-utils parted
-bash-completion 
+bash-completion
 hardlink ca-certificates curl
 usbutils
 libraspberrypi-dev
 dosfstools
-apt-listchanges
 libpam-chksshpwd
 rpi-update
-rsync
 htop
 policykit-1
-ethtool
 pciutils
-raspinfo
-unzip zip
 file
-nut-client
-nut-server
+strace
