@@ -12,7 +12,7 @@
 # By default this script does nothing.
 
 # Disable HDMI output
-/usr/bin/tvservice -o 
+/usr/bin/tvservice -o > /dev/null
 
 # Print the IP address
 _IP=$(hostname -I) || true
