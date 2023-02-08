@@ -23,7 +23,6 @@ EOF
 				on_chroot << EOF
 apt-get -o Acquire::Retries=3 install --no-install-recommends -y $PACKAGES
 EOF
-				fi
 			fi
 			log "End ${SUB_STAGE_DIR}/${i}-packages-nr"
 		fi
@@ -34,7 +33,6 @@ EOF
 				on_chroot << EOF
 apt-get -o Acquire::Retries=3 install -y $PACKAGES
 EOF
-				fi
 			fi
 			log "End ${SUB_STAGE_DIR}/${i}-packages"
 		fi
