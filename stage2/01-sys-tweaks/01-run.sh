@@ -34,15 +34,12 @@ EOF
 
 on_chroot << EOF
 systemctl disable hwclock.sh
-#systemctl disable sshswitch
-systemctl disable rpcbind
 if [ "${ENABLE_SSH}" == "1" ]; then
 	systemctl enable ssh
 else
 	systemctl disable ssh
 fi
-systemctl disable regenerate_ssh_host_keys
-#systemctl disable apply_noobs_os_config
+systemctl enable regenerate_ssh_host_keys
 EOF
 
 if [ "${USE_QEMU}" = "1" ]; then
@@ -67,8 +64,8 @@ for GRP in adm dialout users sudo plugdev input gpio spi i2c netdev; do
 done
 EOF
 
-# Update sudoers file from raspberrypi-sys-mods with new username
 if [ -f "${ROOTFS_DIR}/etc/sudoers.d/010_pi-nopasswd" ]; then
+  # Update sudoers file from raspberrypi-sys-mods with new username
   sed -i "s/^pi /$FIRST_USER_NAME /" "${ROOTFS_DIR}/etc/sudoers.d/010_pi-nopasswd"
 else
   if [ "${FIRST_USER_SUDO_NOPASSWD}" = "1" ]; then
@@ -76,10 +73,10 @@ else
   fi
 fi
 
-# set up the font and the keyboard on Linux console
-# on_chroot << EOF
-# setupcon --force --save-only -v
-# EOF
+# Change default systemd target
+on_chroot << EOF
+systemctl set-default multi-user.target
+EOF
 
 on_chroot << EOF
 usermod --pass='*' root
