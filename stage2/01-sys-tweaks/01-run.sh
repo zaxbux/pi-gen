@@ -6,8 +6,11 @@ install -d				"${ROOTFS_DIR}/etc/systemd/system/rc-local.service.d"
 install -m 644 files/ttyoutput.conf	"${ROOTFS_DIR}/etc/systemd/system/rc-local.service.d/"
 
 install -m 644 files/50raspi		"${ROOTFS_DIR}/etc/apt/apt.conf.d/"
-
-install -m 644 files/console-setup	"${ROOTFS_DIR}/etc/default/"
+install -m 644 files/disable_raspi_codec.conf		"${ROOTFS_DIR}/etc/modprobe.d/"
+install -m 644 files/disable_raspi_camera.conf		"${ROOTFS_DIR}/etc/modprobe.d/"
+install -m 644 files/disable_raspi_drm.conf		"${ROOTFS_DIR}/etc/modprobe.d/"
+# Disable VideoCore CMA Shared Memory Driver, since less than 32 MiB are applied
+install -m 644 files/disable_vcsm.conf		"${ROOTFS_DIR}/etc/modprobe.d/"
 
 install -m 755 files/rc.local		"${ROOTFS_DIR}/etc/"
 
