@@ -1,0 +1,8 @@
+SUBSYSTEM!="usb", GOTO="nut-usbups_rules_end"
+
+# APC
+ACTION=="add|change", SUBSYSTEM=="usb|usb_device", SUBSYSTEMS=="usb|usb_device", ATTR{idVendor}=="051d", ATTR{idProduct}=="0002", MODE="664", GROUP="nut", RUN+="/usr/bin/systemctl restart nut-driver"
+# CPS
+ACTION=="add|change", SUBSYSTEM=="usb|usb_device", SUBSYSTEMS=="usb|usb_device", ATTR{idVendor}=="0764", ATTR{idProduct}=="0501", MODE="664", GROUP="nut", RUN+="/usr/bin/systemctl restart nut-driver"
+
+LABEL="nut-usbups_rules_end"
