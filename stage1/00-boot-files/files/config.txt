@@ -1,10 +1,15 @@
 #uncomment to overclock the arm. 700 MHz is the default.
 #arm_freq=800
-ignore_lcd=1
+gpu_mem=16
 dtparam=audio=off
+
 camera_auto_detect=0
 display_auto_detect=0
+
+# headless
+ignore_lcd=1
+disable_splash=1
 max_framebuffers=0
 hdmi_blanking=2
-disable_splash=1
-gpu_mem=16
+hdmi_ignore_hotplug=1
+hdmi_ignore_composite=1
