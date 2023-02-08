@@ -14,7 +14,7 @@ install -m 644 files/disable_vcsm.conf		"${ROOTFS_DIR}/etc/modprobe.d/"
 
 install -m 755 files/rc.local		"${ROOTFS_DIR}/etc/"
 
-#install -m 644 files/raspberrypi-sys-mods_20230205_i386.deb	"${ROOTFS_DIR}/tmp/"
+install -m 644 files/raspberrypi-sys-mods-lite_20230206_armhf.deb	"${ROOTFS_DIR}/var/cache/apt/archives/"
 
 if [ -n "${PUBKEY_SSH_FIRST_USER}" ]; then
 	install -v -m 0700 -o 1000 -g 1000 -d "${ROOTFS_DIR}"/home/"${FIRST_USER_NAME}"/.ssh
@@ -28,10 +28,8 @@ if [ "${PUBKEY_ONLY_SSH}" = "1" ]; then
 s/^#?[[:blank:]]*PasswordAuthentication[[:blank:]]*yes[[:blank:]]*$/PasswordAuthentication no/' "${ROOTFS_DIR}"/etc/ssh/sshd_config
 fi
 
-curl -sL "https://github.com/zaxbux/raspberrypi-sys-mods/releases/download/20230205/raspberrypi-sys-mods_20230205_armhf.deb" -o "${ROOTFS_DIR}/tmp/raspberrypi-sys-mods_20230205_armhf.deb"
-
 on_chroot << EOF
-apt install --yes --no-install-recommends "/tmp/raspberrypi-sys-mods_20230205_armhf.deb"
+apt install --yes --no-install-recommends "/var/cache/apt/archives/raspberrypi-sys-mods-lite_20230206_armhf.deb"
 EOF
 
 on_chroot << EOF
